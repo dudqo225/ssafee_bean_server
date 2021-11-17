@@ -2,3 +2,5 @@
 리드미를 작성해본다.
 장효정
 이걸 수정해보께 오빠 거기에서도 수정되나 봐보!
+
+dlrj tdkj;afdsfja;dkasdlkdlf;jsl;'fgkjdkslf;gkjdhklf;gkdjshkflg;dsjhdfk;'s
