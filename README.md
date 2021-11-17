@@ -34,7 +34,7 @@
 
 (1) 세부일정
 
-![세부일정표](README.assets/세부일정표.png)
+<img src="README.assets/세부일정표.png" alt="세부일정표" style="zoom: 50%;" />
 
 
 
