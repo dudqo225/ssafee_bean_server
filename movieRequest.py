@@ -23,7 +23,7 @@ for i in range(1, 11):
 
         movie_list.append(movie)
 
-file_path = './movie.json'
+file_path = '../movies/fixtures/movie.json'
 
 with open(file_path, 'w', encoding='UTF8') as outfile:
     json.dump(movie_list, outfile, ensure_ascii=False, indent=4)
