@@ -3,18 +3,12 @@ import requests, json
 movie_list = []
 
 for i in range(1, 11):
-
     URL = f'https://api.themoviedb.org/3/movie/popular?api_key=65bf23772658c6b898a2865e99430c95&language=ko-KR&page={i}'
 
     response = requests.get(URL)
-
     response_dict = response.json()
 
-    # print(response_dict['results'])
-
-
     for res in response_dict['results']:
-        # print(res.keys())
         movie = {
             'model': 'movies.movie',
         }
@@ -29,9 +23,8 @@ for i in range(1, 11):
 
         movie_list.append(movie)
 
-print(movie_list)
-
-file_path = './movie.json'
+file_path = '../movies/fixtures/movie.json'
 
 with open(file_path, 'w', encoding='UTF8') as outfile:
     json.dump(movie_list, outfile, ensure_ascii=False, indent=4)
+
