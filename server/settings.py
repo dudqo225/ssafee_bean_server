@@ -31,11 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # local app
     'accounts',
     'community',
     'movies',
+    # 3rd party
     'rest_framework',
     'imagekit',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -133,3 +137,23 @@ AUTH_USER_MODEL = 'accounts.User'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+# CORS 모든 Origin 허용
+CORS_ALLOW_ALL_ORIGINS = True
+
+# JWT - JSONWebTokenAuthentication 추가
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
+
+# 토큰 만료기간 변경 - 서비스 배포 전 변경하기!
+import datetime
+
+JWT_AUTH = {
+    'JWT_EXPIRATIONS_DELTA': datetime.timedelta(days=1),
+}
