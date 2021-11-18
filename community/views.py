@@ -34,8 +34,12 @@ def review_detail(request, review_pk):
         serializer = ReviewSerializer(review)
         return Response(serializer.data)
 
+    # 리뷰 작성자만 수정 및 삭제 가능
+    if not request.user.review_set.filter(pk=review_pk).exists():
+        return Response({'detail': '권한이 없습니다.'}, status=status.HTTP_403_FORBIDDEN)
+    
     # 리뷰 상세 정보 수정
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         serializer = ReviewSerializer(review, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
