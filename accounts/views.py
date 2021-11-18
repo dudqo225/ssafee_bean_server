@@ -1,9 +1,11 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
+from django.contrib.auth import get_user_model
 
 
 # 회원가입
@@ -28,3 +30,11 @@ def signup(request):
         user.set_password(password)
         user.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+# 프로필 페이지
+@api_view(['GET'])
+def user_detail(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
