@@ -140,3 +140,20 @@ MEDIA_URL = '/media/'
 
 # CORS 모든 Origin 허용
 CORS_ALLOW_ALL_ORIGINS = True
+
+# JWT - JSONWebTokenAuthentication 추가
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
+
+# 토큰 만료기간 변경 - 서비스 배포 전 변경하기!
+import datetime
+
+JWT_AUTH = {
+    'JWT_EXPIRATIONS_DELTA': datetime.timedelta(days=1),
+}

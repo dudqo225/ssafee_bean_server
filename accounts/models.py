@@ -30,7 +30,7 @@ class User(AbstractUser):
         ('ENFJ', 'ENFJ'),
         ('ENFP', 'ENFP'),
     ]
-    mbti = models.CharField(max_length=10, choices=MBTI_CHOICES, default='없음')
-    pay = models.BooleanField()
-    mileage = models.IntegerField()
+    mbti = models.CharField(max_length=10, choices=MBTI_CHOICES, default='NULL')
+    pay = models.BooleanField(default=False)
+    mileage = models.IntegerField(default=0)
 

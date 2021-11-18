@@ -1,3 +1,30 @@
-from django.shortcuts import render
+from rest_framework import status
+from rest_framework import permissions
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from .serializers import UserSerializer
 
-# Create your views here.
+
+# 회원가입
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def signup(request):
+    # Client에서 받은 비밀번호/비밀번호 확인 변수 저장
+    password = request.data.get('password')
+    password_confirmation = request.data.get('passwordConfirmation')
+
+    # 비밀번호 일치 여부 확인 후, 다르면 Error 반환
+    if password != password_confirmation:
+        return Response({'error': '비밀번호가 일치하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # 데이터 직렬화
+    serializer = UserSerializer(data=request.data)
+
+    # 데이터 검증 후 Response 반환
+    if serializer.is_valid(raise_exception=True):
+        user = serializer.save()
+        # 비밀번호 해싱
+        user.set_password(password)
+        user.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
