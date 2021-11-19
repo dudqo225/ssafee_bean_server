@@ -33,8 +33,15 @@ def signup(request):
 
 
 # 프로필 페이지
-@api_view(['GET'])
+@api_view(['GET', 'PUT'])
 def user_detail(request, username):
     user = get_object_or_404(get_user_model(), username=username)
-    serializer = UserSerializer(user)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+    
+    elif request.method == 'PUT':
+        serializer = UserSerializer(user, ata=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)

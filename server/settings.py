@@ -135,8 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'accounts'
+MEDIA_URL = '/accounts/'
 
 # CORS 모든 Origin 허용
 CORS_ALLOW_ALL_ORIGINS = True
