@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from rest_framework.response import Response
@@ -5,8 +6,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
-from .models import Movie
-from .serializers import MovieSerializer, MovieListSerializer
+from .models import Movie, UserMovie
+from .serializers import MovieSerializer, MovieListSerializer, UserMovieSerializer
 
 
 # READ & CREATE
@@ -51,3 +52,66 @@ def movie_detail(request, movie_pk):
     #         'delete': f'영화 데이터 {movie_pk}번이 삭제되었습니다.'
     #     }
     #     return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+
+# 영화 좋아요
+@api_view(['GET','POST'])
+def movie_likes(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+
+    if request.method == 'GET':
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            liked = True
+        else:
+            liked = False
+        context = {
+            'liked' : liked,
+            'likeCount' : movie.like_users.count(),
+        }
+        return JsonResponse(context)
+
+    else:
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            movie.like_users.remove(request.user)
+            liked = False
+        else:
+            movie.like_users.add(request.user)
+            liked = True
+        context = {
+            'liked': liked,
+            'likeCount': movie.like_users.count(),
+        }
+        return JsonResponse(context)
+
+
+# 영화 평점 생성
+@api_view(['GET', 'POST'])
+def movie_rank(request, movie_pk):
+    user_movie = get_list_or_404(UserMovie, movie=movie_pk)
+    if request.method == 'GET':
+        user_rank = user_movie.user_rank.filter(user=request.user.pk)
+        context = {
+            'user_rank': user_rank,
+        }
+        return JsonResponse(context)
+        
+    elif request.method == 'POST':
+        serializer = UserMovieSerializer(data=request.data)
+        user_id = request.data.get('user')
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(movie_id=movie_pk, user_id=user_id)
+            return Response(serializer.data)
+
+# 영화 평점 수정/삭제
+@api_view(['PUT', 'DELETE'])
+def movie_rank_update_delete(request, movie_pk, rank_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    user_movie = get_object_or_404(UserMovie, pk=rank_pk)
+    if request.method == 'PUT':
+        serializer = UserMovieSerializer(data=request.data, instance=user_movie)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message': '평점이 수정되었습니다.'})
+    else:
+        user_movie.delete()
+        return Response({'message': '평점이 삭제되었습니다.'})

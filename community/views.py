@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from rest_framework.response import Response
@@ -52,6 +53,23 @@ def review_detail(request, review_pk):
             'delete': f'리뷰 데이터 {review_pk}번이 삭제되었습니다.'
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+# 리뷰 좋아요
+@api_view(['POST'])
+def review_likes(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+
+    if review.like_users.filter(pk=request.user.pk).exists():
+        review.like_users.remove(request.user)
+        liked = False
+    else:
+        review.like_users.add(request.user)
+        liked = True
+    context = {
+        'liked': liked,
+        'likeCount': review.like_users.count(),
+    }
+    return JsonResponse(context)
 
 
 # READ - 댓글 리스트

@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Genre(models.Model):
     NO_GENRE = 'No_Genre'
@@ -44,7 +45,6 @@ class Genre(models.Model):
         (WESTERN, '서부'),
     ]
     name = models.CharField(max_length=50, choices=GENRE_CHOICES, default=NO_GENRE)
-    # genre_pk = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -52,11 +52,34 @@ class Genre(models.Model):
 class Movie(models.Model):
     title = models.CharField(max_length=100)
     story = models.TextField()
-    rank = models.IntegerField()
+    rank = models.IntegerField() # TMDB 평점
     # actor = models.TextField()
     release_date = models.DateField()
     poster_path = models.TextField()
     genres = models.ManyToManyField(Genre)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies', blank=True)
+    # users = models.ManyToManyField(
+    #     settings.AUTH_USER_MODEL, 
+    #     through='Ranking',
+    #     through_fields=('user', 'movie'))
 
     def __str__(self):
         return f'{self.id}: {self.title}'
+
+class UserMovie(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
+    RANKS = [
+        (0, ''),
+        (1, '★'),
+        (2, '★★'),
+        (3, '★★★'),
+        (4, '★★★★'),
+        (5, '★★★★★'),
+    ]
+
+    user_rank = models.IntegerField(choices=RANKS, default=0) # 사용자입력 평점
+
+    def __str__(self):
+        return f'{self.user}번 사용자가 {self.movie}번 영화에 {self.user_rank}점을 부여'

@@ -10,8 +10,8 @@ for i in range(1, 31):
     review['fields'] = {
         'title': f'{i}번째 리뷰.',
         'content': f'{i}번 테스트 리뷰입니다.',
-        'user': 2,
-        'movie': i+1,
+        'user': 1,
+        'movie': 566525,
         # 'created_at': f'{datetime.datetime.now()}',
         # 'updated_at': f'{datetime.datetime.now()}'
     }
