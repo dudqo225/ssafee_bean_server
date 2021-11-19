@@ -55,31 +55,52 @@ def movie_detail(request, movie_pk):
 
 
 # 영화 좋아요
-@api_view(['POST'])
+@api_view(['GET','POST'])
 def movie_likes(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
 
-    if movie.like_users.filter(pk=request.user.pk).exists():
-        movie.like_users.remove(request.user)
-        liked = False
+    if request.method == 'GET':
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            liked = True
+        else:
+            liked = False
+        context = {
+            'liked' : liked,
+            'likeCount' : movie.like_users.count(),
+        }
+        return JsonResponse(context)
+
     else:
-        movie.like_users.add(request.user)
-        liked = True
-    context = {
-        'liked': liked,
-        'likeCount': movie.like_users.count(),
-    }
-    return JsonResponse(context)
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            movie.like_users.remove(request.user)
+            liked = False
+        else:
+            movie.like_users.add(request.user)
+            liked = True
+        context = {
+            'liked': liked,
+            'likeCount': movie.like_users.count(),
+        }
+        return JsonResponse(context)
 
 
 # 영화 평점 생성
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def movie_rank(request, movie_pk):
-    serializer = UserMovieSerializer(data=request.data)
-    user_id = request.data.get('user_id')
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(movie_id=movie_pk, user_id=user_id)
-        return Response(serializer.data)
+    user_movie = get_list_or_404(UserMovie, movie=movie_pk)
+    if request.method == 'GET':
+        user_rank = user_movie.user_rank.filter(user=request.user.pk)
+        context = {
+            'user_rank': user_rank,
+        }
+        return JsonResponse(context)
+        
+    elif request.method == 'POST':
+        serializer = UserMovieSerializer(data=request.data)
+        user_id = request.data.get('user')
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(movie_id=movie_pk, user_id=user_id)
+            return Response(serializer.data)
 
 # 영화 평점 수정/삭제
 @api_view(['PUT', 'DELETE'])
