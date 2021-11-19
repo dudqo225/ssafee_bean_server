@@ -4,8 +4,8 @@
         "fields": {
             "title": "1번째 리뷰.",
             "content": "1번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 2
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -13,8 +13,8 @@
         "fields": {
             "title": "2번째 리뷰.",
             "content": "2번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 3
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -22,8 +22,8 @@
         "fields": {
             "title": "3번째 리뷰.",
             "content": "3번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 4
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -31,8 +31,8 @@
         "fields": {
             "title": "4번째 리뷰.",
             "content": "4번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 5
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -40,8 +40,8 @@
         "fields": {
             "title": "5번째 리뷰.",
             "content": "5번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 6
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -49,8 +49,8 @@
         "fields": {
             "title": "6번째 리뷰.",
             "content": "6번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 7
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -58,8 +58,8 @@
         "fields": {
             "title": "7번째 리뷰.",
             "content": "7번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 8
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -67,8 +67,8 @@
         "fields": {
             "title": "8번째 리뷰.",
             "content": "8번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 9
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -76,8 +76,8 @@
         "fields": {
             "title": "9번째 리뷰.",
             "content": "9번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 10
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -85,8 +85,8 @@
         "fields": {
             "title": "10번째 리뷰.",
             "content": "10번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 11
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -94,8 +94,8 @@
         "fields": {
             "title": "11번째 리뷰.",
             "content": "11번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 12
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -103,8 +103,8 @@
         "fields": {
             "title": "12번째 리뷰.",
             "content": "12번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 13
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -112,8 +112,8 @@
         "fields": {
             "title": "13번째 리뷰.",
             "content": "13번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 14
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -121,8 +121,8 @@
         "fields": {
             "title": "14번째 리뷰.",
             "content": "14번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 15
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -130,8 +130,8 @@
         "fields": {
             "title": "15번째 리뷰.",
             "content": "15번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 16
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -139,8 +139,8 @@
         "fields": {
             "title": "16번째 리뷰.",
             "content": "16번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 17
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -148,8 +148,8 @@
         "fields": {
             "title": "17번째 리뷰.",
             "content": "17번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 18
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -157,8 +157,8 @@
         "fields": {
             "title": "18번째 리뷰.",
             "content": "18번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 19
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -166,8 +166,8 @@
         "fields": {
             "title": "19번째 리뷰.",
             "content": "19번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 20
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -175,8 +175,8 @@
         "fields": {
             "title": "20번째 리뷰.",
             "content": "20번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 21
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -184,8 +184,8 @@
         "fields": {
             "title": "21번째 리뷰.",
             "content": "21번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 22
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -193,8 +193,8 @@
         "fields": {
             "title": "22번째 리뷰.",
             "content": "22번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 23
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -202,8 +202,8 @@
         "fields": {
             "title": "23번째 리뷰.",
             "content": "23번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 24
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -211,8 +211,8 @@
         "fields": {
             "title": "24번째 리뷰.",
             "content": "24번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 25
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -220,8 +220,8 @@
         "fields": {
             "title": "25번째 리뷰.",
             "content": "25번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 26
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -229,8 +229,8 @@
         "fields": {
             "title": "26번째 리뷰.",
             "content": "26번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 27
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -238,8 +238,8 @@
         "fields": {
             "title": "27번째 리뷰.",
             "content": "27번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 28
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -247,8 +247,8 @@
         "fields": {
             "title": "28번째 리뷰.",
             "content": "28번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 29
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -256,8 +256,8 @@
         "fields": {
             "title": "29번째 리뷰.",
             "content": "29번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 30
+            "user": 1,
+            "movie": 566525
         }
     },
     {
@@ -265,8 +265,8 @@
         "fields": {
             "title": "30번째 리뷰.",
             "content": "30번 테스트 리뷰입니다.",
-            "user": 2,
-            "movie": 31
+            "user": 1,
+            "movie": 566525
         }
     }
 ]

@@ -10,7 +10,9 @@ class User(AbstractUser):
     avatar_thumbnail = ProcessedImageField(upload_to='avatars', 
                                            processors=[ResizeToFill(300, 300)],
                                            format='JPEG',
-                                           options={'quality': 100})
+                                           options={'quality': 100},
+                                           blank=True,
+                                           )
     MBTI_CHOICES = [
         ('NULL', '없음'),
         ('ISTJ', 'ISTJ'),

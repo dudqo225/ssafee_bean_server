@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from rest_framework.response import Response
@@ -5,8 +6,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
-from .models import Movie
-from .serializers import MovieSerializer, MovieListSerializer
+from .models import Movie, UserMovie
+from .serializers import MovieSerializer, MovieListSerializer, UserMovieSerializer
 
 
 # READ & CREATE
@@ -51,3 +52,45 @@ def movie_detail(request, movie_pk):
     #         'delete': f'영화 데이터 {movie_pk}번이 삭제되었습니다.'
     #     }
     #     return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+
+# 영화 좋아요
+@api_view(['POST'])
+def movie_likes(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+
+    if movie.like_users.filter(pk=request.user.pk).exists():
+        movie.like_users.remove(request.user)
+        liked = False
+    else:
+        movie.like_users.add(request.user)
+        liked = True
+    context = {
+        'liked': liked,
+        'likeCount': movie.like_users.count(),
+    }
+    return JsonResponse(context)
+
+
+# 영화 평점 생성
+@api_view(['POST'])
+def movie_rank(request, movie_pk):
+    serializer = UserMovieSerializer(data=request.data)
+    user_id = request.data.get('user_id')
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(movie_id=movie_pk, user_id=user_id)
+        return Response(serializer.data)
+
+# 영화 평점 수정/삭제
+@api_view(['PUT', 'DELETE'])
+def movie_rank_update_delete(request, movie_pk, rank_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    user_movie = get_object_or_404(UserMovie, pk=rank_pk)
+    if request.method == 'PUT':
+        serializer = UserMovieSerializer(data=request.data, instance=user_movie)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message': '평점이 수정되었습니다.'})
+    else:
+        user_movie.delete()
+        return Response({'message': '평점이 삭제되었습니다.'})
