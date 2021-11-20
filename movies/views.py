@@ -6,9 +6,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
-from .models import Movie, UserMovie
-from .serializers import MovieSerializer, MovieListSerializer, UserMovieSerializer
+from .models import Genre, Movie, UserMovie
+from .serializers import GenreSerializer, MovieSerializer, MovieListSerializer, UserMovieSerializer
 
+from django.db.models import Max
 
 # READ & CREATE
 @api_view(['GET'])
@@ -87,9 +88,9 @@ def movie_likes(request, movie_pk):
 # 영화 평점 생성
 @api_view(['GET', 'POST'])
 def movie_rank(request, movie_pk):
-    user_movie = get_object_or_404(UserMovie, movie=movie_pk, user=request.user.pk)
 
     if request.method == 'GET':
+        user_movie = get_object_or_404(UserMovie, movie=movie_pk, user=request.user.pk)
         serializer = UserMovieSerializer(user_movie)
         return Response(serializer.data)
         
@@ -117,5 +118,15 @@ def movie_rank_update_delete(request, movie_pk, rank_pk):
 
 # 영화 추천
 @api_view(['GET'])
-def movie_recommendation(request):
-    pass
+def movie_recommendation(request, mode, mode_pk):
+    # mode - genre, rank, mbti
+    if mode == 'genre':
+        genre = get_object_or_404(Genre, pk=mode_pk)
+        serializer = GenreSerializer(genre)
+        return Response(serializer.data)
+    elif mode == 'rank':
+        user_movie = get_list_or_404(UserMovie, user=mode_pk)
+        serializer = UserMovieSerializer(user_movie, many=True)
+        return Response(serializer.data)
+    elif mode == 'mbti':
+        pass
