@@ -82,4 +82,4 @@ class UserMovie(models.Model):
     user_rank = models.IntegerField(choices=RANKS, default=0) # 사용자입력 평점
 
     def __str__(self):
-        return f'{self.user}번 사용자가 {self.movie}번 영화에 {self.user_rank}점을 부여'
+        return f'{self.user} 사용자가 {self.movie} 영화에 {self.user_rank}점을 부여'
