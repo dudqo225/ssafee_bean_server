@@ -55,35 +55,54 @@ def review_detail(request, review_pk):
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 # 리뷰 좋아요
-@api_view(['POST'])
+@api_view(['GET','POST'])
 def review_likes(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
 
-    if review.like_users.filter(pk=request.user.pk).exists():
-        review.like_users.remove(request.user)
-        liked = False
+    if request.method == 'GET':
+        if review.like_users.filter(pk=request.user.pk).exists():
+            liked = True
+        else:
+            liked = False
+        context = {
+            'liked': liked,
+            'likeCount': review.like_users.count()
+        }
+        return JsonResponse(context)
+    
     else:
-        review.like_users.add(request.user)
-        liked = True
-    context = {
-        'liked': liked,
-        'likeCount': review.like_users.count(),
-    }
-    return JsonResponse(context)
+        if review.like_users.filter(pk=request.user.pk).exists():
+            review.like_users.remove(request.user)
+            liked = False
+        else:
+            review.like_users.add(request.user)
+            liked = True
+        context = {
+            'liked': liked,
+            'likeCount': review.like_users.count(),
+        }
+        return JsonResponse(context)
 
 
 # READ - 댓글 리스트
-@api_view(['GET'])
-def comment_list(request):
+@api_view(['GET', 'POST'])
+def comment_list(request, review_pk):
     # 전체 댓글 조회
-    comments = get_list_or_404(Comment)
-    serializer = CommentSerializer(comments, many=True)
-    return Response(serializer.data)
-    
+    if request.method == 'GET':
+        comments = get_list_or_404(Comment)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+    # 댓글 생성
+    else:
+        review = get_object_or_404(Review, pk=review_pk)
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(review=review)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 # READ & DELETE - 세부 댓글
 @api_view(['GET', 'DELETE'])
-def comment_detail(request, comment_pk):
+def comment_detail(request, review_pk, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
     
     # 개별 댓글 조회
@@ -98,12 +117,3 @@ def comment_detail(request, comment_pk):
             'delete': f'댓글 {comment_pk}번이 삭제되었습니다.'
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
-
-# CREATE - 댓글 생성
-@api_view(['POST'])
-def comment_create(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    serializer = CommentSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(review=review)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)

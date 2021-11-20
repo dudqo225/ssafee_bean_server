@@ -7,5 +7,5 @@ urlpatterns = [
     path('<int:movie_pk>/rank/', views.movie_rank),
     path('<int:movie_pk>/rank/<int:rank_pk>/', views.movie_rank_update_delete),
     path('<int:movie_pk>/likes/', views.movie_likes),
-    path('recommendation/', views.movie_recommendation),
+    path('recommendation/<str:mode>/<int:mode_pk>/', views.movie_recommendation),
 ]
