@@ -87,13 +87,11 @@ def movie_likes(request, movie_pk):
 # 영화 평점 생성
 @api_view(['GET', 'POST'])
 def movie_rank(request, movie_pk):
-    user_movie = get_list_or_404(UserMovie, movie=movie_pk)
+    user_movie = get_object_or_404(UserMovie, movie=movie_pk, user=request.user.pk)
+
     if request.method == 'GET':
-        user_rank = user_movie.user_rank.filter(user=request.user.pk)
-        context = {
-            'user_rank': user_rank,
-        }
-        return JsonResponse(context)
+        serializer = UserMovieSerializer(user_movie)
+        return Response(serializer.data)
         
     elif request.method == 'POST':
         serializer = UserMovieSerializer(data=request.data)
@@ -115,3 +113,9 @@ def movie_rank_update_delete(request, movie_pk, rank_pk):
     else:
         user_movie.delete()
         return Response({'message': '평점이 삭제되었습니다.'})
+
+
+# 영화 추천
+@api_view(['GET'])
+def movie_recommendation(request):
+    pass
