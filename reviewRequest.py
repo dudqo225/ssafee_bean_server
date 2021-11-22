@@ -12,8 +12,8 @@ for i in range(1, 31):
         'content': f'{i}번 테스트 리뷰입니다.',
         'user': 1,
         'movie': 566525,
-        # 'created_at': f'{datetime.datetime.now()}',
-        # 'updated_at': f'{datetime.datetime.now()}'
+        'created_at': f'{datetime.datetime.now()}',
+        'updated_at': f'{datetime.datetime.now()}'
     }
     review_list.append(review)
 
