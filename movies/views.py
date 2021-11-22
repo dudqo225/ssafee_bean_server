@@ -8,8 +8,7 @@ from rest_framework.permissions import AllowAny
 
 from .models import Genre, Movie, UserMovie
 from .serializers import GenreSerializer, MovieSerializer, MovieListSerializer, UserMovieSerializer
-
-from django.db.models import Max
+from django.db.models import Q
 
 # READ & CREATE
 @api_view(['GET'])
@@ -18,8 +17,13 @@ def movie_list(request):
     # 전체 영화 조회
     if request.method == 'GET':
         movies = get_list_or_404(Movie)
+        # 영화 타이틀 검색 기능
+        q = request.GET.get('q', '')
+        if q:
+            movies = get_list_or_404(Movie, title__icontains=q)
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
+
     # 영화 데이터 생성
     # elif request.method == 'POST':
     #     serializer = MovieSerializer(data=request.data)
@@ -129,4 +133,54 @@ def movie_recommendation(request, mode, mode_pk):
         serializer = UserMovieSerializer(user_movie, many=True)
         return Response(serializer.data)
     elif mode == 'mbti':
-        pass
+        # ISTJ
+        if mode_pk == 1:
+            movies = get_list_or_404(Movie, genres__in=[53, 9648])
+        # ISTP
+        elif mode_pk == 2:
+            movies = get_list_or_404(Movie, genres__in=[14, 878])
+        # ISFJ
+        elif mode_pk == 3:
+            movies = get_list_or_404(Movie, genres__in=[18, 53])
+        # ISFP
+        elif mode_pk == 4:
+            movies = get_list_or_404(Movie, genres__in=[10770, 18, 10751])
+        # INTJ
+        elif mode_pk == 5:
+            movies = get_list_or_404(Movie, genres__in=[9648, 18, 10749, 10402])
+        # INTP
+        elif mode_pk == 6:
+            movies = get_list_or_404(Movie, genres__in=[10749, 18])
+        # INFJ
+        elif mode_pk == 7:
+            movies = get_list_or_404(Movie, genres__in=[53, 18, 10751])
+        # INFP
+        elif mode_pk == 8:
+            movies = get_list_or_404(Movie, genres__in=[18, 10749, 878, 16])
+        # ESTJ
+        elif mode_pk == 9:
+            movies = get_list_or_404(Movie, genres__in=[28, 10749])
+        # ESTP
+        elif mode_pk == 10:
+            movies = get_list_or_404(Movie, genres__in=[80, 53])
+        # ESFJ
+        elif mode_pk == 11:
+            movies = get_list_or_404(Movie, genres__in=[10749, 35, 10752])
+        # ESFP
+        elif mode_pk == 12:
+            movies = get_list_or_404(Movie, genres__in=[10749, 18, 35])
+        # ENTJ
+        elif mode_pk == 13:
+            movies = get_list_or_404(Movie, genres__in=[10402, 80, 53])
+        # ENTP
+        elif mode_pk == 14:
+            movies = get_list_or_404(Movie, genres__in=[99, 18])
+        # ENFJ
+        elif mode_pk == 15:
+            movies = get_list_or_404(Movie, genres__in=[10749, 14, 12])
+        # ENFP
+        elif mode_pk == 16:
+            movies = get_list_or_404(Movie, genres__in=[9648, 18, 53, 27, 36, 10752])
+        
+        serializer = MovieListSerializer(movies, many=True)
+        return Response(serializer.data)    
