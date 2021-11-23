@@ -9,6 +9,7 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     # 작성자
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_name = models.CharField(max_length=100)
     # 좋아요한 유저
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews', blank=True)
     # movie와 1:N 연결
