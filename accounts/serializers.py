@@ -13,4 +13,10 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('avatar_thumbnail', 'mbti', 'pay', 'mileage',)
+
+class UserMileageUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('mileage')
     
