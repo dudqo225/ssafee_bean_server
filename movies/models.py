@@ -54,6 +54,8 @@ class Movie(models.Model):
     story = models.TextField()
     rank = models.IntegerField() # TMDB 평점
     # actor = models.TextField()
+    original_title = models.CharField(max_length=200, blank=True)
+    popularity = models.FloatField(default=0)
     release_date = models.DateField()
     poster_path = models.TextField()
     genres = models.ManyToManyField(Genre)

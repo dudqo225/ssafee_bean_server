@@ -20,7 +20,7 @@ def movie_list(request):
         # 영화 타이틀 검색 기능
         q = request.GET.get('q', '')
         if q:
-            movies = get_list_or_404(Movie, title__icontains=q)
+            movies = get_list_or_404(Movie, Q(title__icontains=q) | Q(original_title__icontains=q))
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
 
@@ -30,6 +30,15 @@ def movie_list(request):
     #     if serializer.is_valid(raise_exception=True):
     #         serializer.save()
     #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+# 장르 리스트 GET
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def genre_list(request):
+    genres = get_list_or_404(Genre)
+    serializer = GenreSerializer(genres, many=True)
+    return Response(serializer.data)
+
 
 
 # READ & UPDATE & DELETE - 영화 상세 정보
