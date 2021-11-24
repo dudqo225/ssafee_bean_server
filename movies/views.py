@@ -134,8 +134,8 @@ def movie_rank_update_delete(request, movie_pk, rank_pk):
 def movie_recommendation(request, mode, mode_pk):
     # mode - genre, rank, mbti
     if mode == 'genre':
-        genre = get_object_or_404(Genre, pk=mode_pk)
-        serializer = GenreSerializer(genre)
+        movies = Movie.objects.filter(genres__in=[mode_pk]).order_by('-rank', 'title')[:10]
+        serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
     elif mode == 'rank':
         user_movie = get_list_or_404(UserMovie, user=mode_pk)
