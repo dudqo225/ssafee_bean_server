@@ -16,7 +16,7 @@ class MovieSerializer(serializers.ModelSerializer):
     like_user_count = serializers.IntegerField(source='like_users.count', read_only=True)
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'story', 'rank', 'release_date', 'poster_path', 'genres', 'like_users', 'user_movie', 'like_user_count']
+        fields = ['id', 'title', 'story', 'original_title', 'rank', 'release_date', 'poster_path', 'genres', 'like_users', 'user_movie', 'like_user_count']
 
 class MovieListSerializer(serializers.ModelSerializer):
     class Meta:
