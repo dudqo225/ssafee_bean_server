@@ -7,6 +7,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'password', 'avatar_thumbnail', 'mbti', 'pay', 'mileage',)
+
+class UserAvatarSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username', 'avatar_thumbnail',)
     
 class UserUpdateSerializer(serializers.ModelSerializer):
 
