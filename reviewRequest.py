@@ -13,7 +13,8 @@ for i in range(1, 31):
         'user': 1,
         'user_name': 'admin',
         'created_at': f'{datetime.datetime.now()}',
-        'updated_at': f'{datetime.datetime.now()}'
+        'updated_at': f'{datetime.datetime.now()}',
+        'user_name': 'admin',
     }
     review_list.append(review)
 
