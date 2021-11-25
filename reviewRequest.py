@@ -11,7 +11,7 @@ for i in range(1, 31):
         'title': f'{i}번째 리뷰.',
         'content': f'{i}번 테스트 리뷰입니다.',
         'user': 1,
-        'movie': 566525,
+        'user_name': 'admin',
         'created_at': f'{datetime.datetime.now()}',
         'updated_at': f'{datetime.datetime.now()}',
         'user_name': 'admin',
