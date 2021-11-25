@@ -14,7 +14,8 @@ from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializ
 def review_list(request):
     # 전체 리뷰 조회
     if request.method == 'GET':
-        reviews = get_list_or_404(Review)
+        reviews = Review.objects.all().order_by('-pk')
+        reviews = get_list_or_404(reviews)
         serializer = ReviewListSerializer(reviews, many=True)
         return Response(serializer.data)
     # 리뷰 생성
