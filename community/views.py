@@ -90,7 +90,8 @@ def review_likes(request, review_pk):
 def comment_list(request, review_pk):
     # 전체 댓글 조회
     if request.method == 'GET':
-        comments = get_list_or_404(Comment)
+        comments = Comment.objects.filter(review_id=review_pk).order_by('-pk')
+        comments = get_list_or_404(comments)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
     # 댓글 생성
