@@ -1,5 +1,6 @@
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.core.paginator import Paginator
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -21,6 +22,9 @@ def movie_list(request):
         q = request.GET.get('q', '')
         if q:
             movies = get_list_or_404(Movie, Q(title__icontains=q) | Q(original_title__icontains=q))
+        # paginator = Paginator(movies, 10)
+        # page_number = request.GET.get('page')
+        # page_obj = paginator.get_page(page_number)
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
 
