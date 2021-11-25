@@ -43,7 +43,14 @@ def genre_list(request):
     serializer = GenreSerializer(genres, many=True)
     return Response(serializer.data)
 
-
+# 장르 영화 리스트 GET
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def genre_movie_list(request, genre_pk):
+    movies = Movie.objects.filter(genres__in=[genre_pk]).order_by('-rank', 'title')[:10]
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+    
 
 # READ & UPDATE & DELETE - 영화 상세 정보
 @api_view(['GET'])
@@ -137,11 +144,11 @@ def movie_rank_update_delete(request, movie_pk, rank_pk):
 @api_view(['GET'])
 def movie_recommendation(request, mode, mode_pk):
     # mode - genre, rank, mbti
-    if mode == 'genre':
-        movies = Movie.objects.filter(genres__in=[mode_pk]).order_by('-rank', 'title')[:10]
-        serializer = MovieListSerializer(movies, many=True)
-        return Response(serializer.data)
-    elif mode == 'rank':
+    # if mode == 'genre':
+    #     movies = Movie.objects.filter(genres__in=[mode_pk]).order_by('-rank', 'title')[:10]
+    #     serializer = MovieListSerializer(movies, many=True)
+    #     return Response(serializer.data)
+    if mode == 'rank':
         user_movie = get_list_or_404(UserMovie, user=mode_pk)
         serializer = UserMovieSerializer(user_movie, many=True)
         return Response(serializer.data)
