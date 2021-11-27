@@ -130,7 +130,9 @@
 <details>
 <summary>상세 내용 확인</summary>
 <div markdown="1">
+
 ##### 1. 오늘의 목표
+
 
 - 영화데이터 API 수집할 곳 정하기, 조사하기
 - Wireframe 만들기
@@ -487,6 +489,8 @@
 </div> </details>
 
 #### (5) 2021. 11. 22
+
+<details> <summary>상세 내용 확인</summary> <div markdown="1">
 
 ##### 1. 오늘의 목표
 
