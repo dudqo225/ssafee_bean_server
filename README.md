@@ -1,4 +1,4 @@
-# Final_PJT_SSAfee  Been
+# Final_PJT_SSAfee  Bean
 
 ## 0. 프로젝트 소개
 
